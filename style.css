@@ -1,0 +1,482 @@
+/* ==========================================
+VARIABLES & RESET
+========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
+
+:root {
+    --green: #5a9e2f;
+    --green-light: #7cb829;
+    --green-shadow: rgba(90, 158, 47, 0.35);
+    --orange: #e67e22;
+    --orange-light: #f39c12;
+    --orange-shadow: rgba(230, 126, 34, 0.35);
+    --bg: #f0f4ec;
+    --white: #ffffff;
+    --text: #2c3e1f;
+    --text-light: #7a8c6a;
+    --radius: 12px;
+    --shadow: 0 4px 16px rgba(0,0,0,0.08);
+    --transition: 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Prompt',sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/** ==========================================
+HEADER
+   ========================================== */
+.header {
+    background: var(--white);
+    box-shadow: 0 0px 12px rgba(0,0,0, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: -0.5px;
+}
+
+/* ปุ่มเปิดตะกร้า  */
+.cart-toggle {
+    position: relative;
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;  
+    transition: var(--transition);
+    box-shadow: var(--green-shadow);
+}
+
+.cart-toggle:hover {
+    background: #4a8a25;
+    transform: translateY(-1px);
+}
+
+/* Badge จำนวนสินค้า */
+.cart-badge {
+    background: var(--orange);
+    color: #fff;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+/* Animation เมื่อตัวเลข badge เปลี่ยน */
+.cart-badge.bump {
+    transform: scale(1.4);
+}
+
+/* ==========================================
+LAYOUT
+   ========================================== */
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding: 24px;
+    gap: 20px;
+}
+/*Sidebar*/
+.filter-section {
+    width: 220px;
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--radius);
+    height: fit-content;
+    flex-shrink: 0;
+    box-shadow: var(--shadow);    
+}
+
+.filter-section h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+.filter-section h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 18px 0 8px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #dde8d0;
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+    background: #fafff7;
+}
+
+#searchInput:focus {
+    border-color: var(--green-light);
+    box-shadow: 0 0 0 3px rgba(124,184,41, 0.15);
+}
+
+.btn-filter {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 9px 12px;
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    height: fit-content;
+    background: #7cb829;
+    color: var(--white);
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.9rem;
+    box-shadow:  0 4px 12px rgba(124,184,41, 0.4 );
+    cursor: pointer;
+    transition:var(--transition);
+
+}
+
+.btn-filter:hover{
+    background: #e0eccc;
+    box-shadow: 0 8px 20px rgba(124,184,41, 0.7);
+    color: #000000;
+    
+}
+
+/* ปุ่มที่กำลัง active (หมวดที่เลือกอยู่) */
+.btn-filter.active {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+    box-shadow: 0 3px 10px var(--green-shadow);
+}
+
+
+/* ==========================================
+PRODUCT GRID
+   ========================================== */
+
+/*Prouct Grid*/
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(190px, 1fr));
+    gap: 18px;
+    flex-grow: 1;
+    align-content: start;
+}
+.product-card {
+    background:var(--white);
+    padding: 14px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow:var(--shadow);
+    transition: transform 0.2s,box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.product-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f0f4ec;
+}
+
+.product-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.price {
+    color:var(--orange);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+
+.btn-cart {
+    margin-top: auto;
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 9px;
+    border-radius: 8px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 3px 8px var(--orange-shadow);
+}
+
+.btn-cart:hover {
+    background: #e2b995;
+    transform: translateY(-1px);
+}
+
+/* ข้อความเมื่อไม่มีสินค้า */
+.empty-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-light);
+    padding: 48px 0;
+    font-size: 1rem;
+}
+
+/* ==========================================
+CART SIDEBAR
+   ========================================== */
+
+/* Overlay สีเทาด้านหลัง cart */
+.cart-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 200;
+}
+
+.cart-overlay.show {
+    display: block;
+}
+
+/* ตัว Sidebar ตะกร้า (slide จากขวา) */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 360px;
+    height: 100vh;
+    background: var(--white);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);      /* ซ่อนอยู่นอกขอบขวา */
+    transition: transform 0.3s ease;
+}
+
+/* เมื่อ open: เลื่อนเข้ามา */
+.cart-sidebar.open {
+    transform: translateX(0);
+}
+
+.cart-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-light);
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.btn-close:hover {
+    background: #f0f4ec;
+    color: var(--text);
+}
+
+/* พื้นที่รายการสินค้า (scroll ได้) */
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ข้อความตะกร้าว่าง */
+.cart-empty {
+    text-align: center;
+    color: var(--text-light);
+    padding: 60px 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* แต่ละรายการในตะกร้า */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: #fafff7;
+    border-radius: 10px;
+    border: 1px solid #eaf2e0;
+    animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item img {
+    width: 54px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.cart-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-price {
+    color: var(--orange);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* ปุ่ม + - และตัวเลขจำนวน */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.btn-qty {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid #cdd8c2;
+    background: white;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--text);
+}
+
+.btn-qty:hover {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+.qty-number {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   CART FOOTER (ราคารวม + ปุ่มชำระ)
+   ========================================== */
+.cart-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+    background: white;
+}
+
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 1rem;
+}
+
+.cart-total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green);
+}
+
+.btn-checkout {
+    width: 100%;
+    padding: 13px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px var(--green-shadow);
+}
+
+.btn-checkout:hover {
+    background: #4a8a25;
+    transform: translateY(-1px);
+}
+
+.btn-checkout:disabled {
+    background: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}

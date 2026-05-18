@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart Filter </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">🛒 Fresh Market</div>
+            <!-- Cart Badge: ไอคอนตะกร้าที่มีจำนวนสินค้า -->
+            <button class="cart-toggle" id="cartToggle">
+                ตะกร้า
+                <span class="cart-badge" id="cartBadge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="filter-section">
+            <h2>ค้นหาสินค้า</h2>
+            <input type="text" id="searchInput" placeholder="พิมพ์ชื่อสินค้า">
+
+            <h3>หมวดหมู่</h3>
+            <button class="btn-filter active" data-category="all" onclick="filterCategory('all', this)">ทั้งหมด</button>
+            <button class="btn-filter" data-category="fruit" onclick="filterCategory('fruit', this)"> 🍎 ผลไม้</button>
+            <button class="btn-filter" data-category="meat" onclick="filterCategory('meat', this)"> 🥩 เนื้อสัตว์</button>
+        </aside>
+
+        <!-- Product Grid -->
+        <main class="product-grid" id="productGrid">
+            <!-- สินค้าจะถูกเพิ่มด้วยJavaScript -->
+        </main>
+
+    </div>
+
+    <!-- Cart Sidebar: แผงตะกร้าด้านขวา -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>🛒 ตะกร้าสินค้า</h2>
+            <button class="btn-close" onclick="closeCart()">✕</button>
+        </div>
+
+        <!-- รายการสินค้าในตะกร้า -->
+        <div class="cart-items" id="cartItems"></div>
+
+        <!-- สรุปราคา -->
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <span>รวมทั้งหมด</span>
+                <span class="cart-total" id="cartTotal">฿0</span>
+            </div>
+            <button class="btn-checkout" id="checkoutBtn" onclick="checkout()">ชำระเงิน</button>
+        </div>
+    </aside>
+
+
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
